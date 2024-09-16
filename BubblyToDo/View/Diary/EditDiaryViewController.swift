@@ -27,7 +27,7 @@ class EditDiaryViewController: UIViewController {
         setupUI()
         configureUI()
         
-        print("diaryContent: \(diaryContent ?? "없음") / diaryDate: \(diaryDate ?? "없음") / diaryEmoji: \(diaryEmoji ?? "없음")")
+        print("diaryContent: diaryId \(diaryId) / \(diaryContent ?? "없음") / diaryDate: \(diaryDate ?? "없음") / diaryEmoji: \(diaryEmoji ?? "없음")")
     }
     
     private func setupUI() {
@@ -97,64 +97,38 @@ class EditDiaryViewController: UIViewController {
         contentTextView.text = diaryContent // 기존 일기 내용으로 설정
     }
     
-
-
-    
     @objc private func saveButtonTapped() {
+        guard let saveuser = UserDefaults.standard.string(forKey: "useremail") else {
+            print("Error: useremail is nil")
+            return
+        }
+        
         guard let diaryDate = diaryDate else {
             print("Error: diaryDate is nil")
             return
         }
         
-        print("saveButtonTapped \(diaryDate)")
-
         guard let updatedContent = contentTextView.text else { return }
         
-        // 옵셔널 값을 안전하게 처리
         let updatedDiary = DiaryDTO(
             diaryId: diaryId,
             diary: updatedContent,
-            diaryDate: diaryDate, // 기본값 제공
-            diaryEmoji: diaryEmoji ?? ""  // 기본값 제공
+            diaryDate: diaryDate,
+            diaryEmoji: diaryEmoji ?? "",
+            diaryUser: saveuser
         )
         
-        // API 호출
-        let urlString = "http://localhost:8084/diary/update/\(diaryDate)"
-        guard let url = URL(string: urlString) else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            let jsonData = try JSONEncoder().encode(updatedDiary)
-            request.httpBody = jsonData
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error updating diary: \(error)")
-                    return
-                }
-                
-                guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                    print("Server error")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    // 성공적으로 업데이트된 후 이전 화면으로 돌아가기
+        DiaryManager.shared.updateDiary(diaryDTO: updatedDiary) { success, errorMessage in
+            DispatchQueue.main.async {
+                if success {
                     self.navigationController?.popViewController(animated: true)
+                } else {
+                    print("Error: \(errorMessage ?? "Unknown error")")
                 }
             }
-            
-            task.resume()
-        } catch {
-            print("Error encoding diary: \(error)")
         }
     }
-
-
-
+    
     @objc private func changeEmojiButtonTapped() {
         // 이모지를 변경하는 로직
         // 예시로 이모지를 랜덤으로 변경하는 방법

@@ -109,33 +109,27 @@ class EditTodoViewController: UIViewController {
     }
     
     func loadCategories() {
-        guard let url = URL(string: "http://localhost:8084/category") else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error fetching categories: \(error)")
-                return
-            }
+        if let saveuser = UserDefaults.standard.string(forKey: "useremail") {
+            print("saveuser: \(saveuser)") // 저장된 이메일 출력
             
-            guard let data = data else { return }
-            
-            do {
-                let categoryDTOList = try JSONDecoder().decode([CategoryDTO].self, from: data)
-                print("Fetched Categories: \(categoryDTOList)") // 추가된 디버깅
-                
-                self.categoryDictionary = Dictionary(uniqueKeysWithValues: categoryDTOList.map { ($0.category, ($0.categoryColor, $0.categoryId)) })
+            CategoryManager.shared.loadCategories(for: saveuser) { [weak self] categoryDTOList, error in
+                if let error = error {
+                    print("Error loading categories: \(error.localizedDescription)")
+                    return
+                }
 
-                self.categories = categoryDTOList.map { $0.category } // 카테고리 이름 배열로 저장
+                guard let categoryDTOList = categoryDTOList else { return }
+
+                self?.categoryDictionary = Dictionary(uniqueKeysWithValues: categoryDTOList.map { ($0.category, ($0.categoryColor, $0.categoryId)) })
+                self?.categories = categoryDTOList.map { $0.category } // 카테고리 이름 배열로 저장
                 
                 DispatchQueue.main.async {
-                    self.categoryPicker.reloadAllComponents()
+                    self?.categoryPicker.reloadAllComponents()
                 }
-            } catch {
-                print("Error decoding JSON: \(error)")
             }
+        } else {
+            print("저장된 사용자 이메일이 없습니다.")
         }
-        
-        task.resume()
     }
     
     @objc func doneButtonTapped() {
@@ -150,7 +144,7 @@ class EditTodoViewController: UIViewController {
         print("updatedTodo \(updatedTodo)")
 
         // 서버에 수정 요청
-        updateTodoOnServer(todoId: todoId, todo: updatedTodo) { success, message in
+        TodoManager.shared.updateTodoOnServer(todoId: todoId, todo: updatedTodo) { success, message in
             DispatchQueue.main.async {
                 if success {
                     // 성공 메시지 표시 후 이전 화면으로 돌아가기
@@ -181,52 +175,6 @@ class EditTodoViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy-MM-dd"  // 원하는 형식으로 변경
         return dateFormatter.string(from: date)
     }
-
-    // 서버에 수정 요청
-    func updateTodoOnServer(todoId: Int64, todo: EditTodoDTO, completion: @escaping (Bool, String?) -> Void) {
-        guard let url = URL(string: "http://localhost:8084/bubbly-todo/update/\(todoId)") else {
-            completion(false, "유효한 URL이 아닙니다.")
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST" // POST 요청
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let encoder = JSONEncoder()
-        do {
-            let jsonData = try encoder.encode(todo) // EditTodoDTO를 JSON으로 인코딩
-            print("Sending JSON: \(String(data: jsonData, encoding: .utf8) ?? "")") // 디버깅
-            request.httpBody = jsonData
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error updating todo: \(error)")
-                    completion(false, "업데이트 실패: \(error.localizedDescription)")
-                    return
-                }
-
-                if let httpResponse = response as? HTTPURLResponse {
-                    print("Response status code: \(httpResponse.statusCode)") // 응답 상태 코드 확인
-                    if httpResponse.statusCode == 200, let data = data,
-                       let message = String(data: data, encoding: .utf8) {
-                        // 성공 메시지를 반환
-                        completion(true, message)
-                    } else {
-                        // 실패 메시지를 반환
-                        let errorMessage = String(data: data ?? Data(), encoding: .utf8) ?? "업데이트할 수 없습니다."
-                        completion(false, errorMessage)
-                    }
-                }
-            }
-            
-            task.resume()
-        } catch {
-            print("Error encoding todo: \(error)")
-            completion(false, "업데이트 실패: \(error.localizedDescription)")
-        }
-    }
-
 }
 
 // UIPickerViewDelegate 및 UIPickerViewDataSource 확장

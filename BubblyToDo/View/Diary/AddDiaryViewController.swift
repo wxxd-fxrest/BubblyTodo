@@ -106,43 +106,26 @@ class AddDiaryViewController: UIViewController {
     }
 
     @objc private func saveButtonTapped() {
-        guard let diaryContent = contentTextView.text,
-              let diaryDate = dateTextView.text else { return }
+        if let saveuser = UserDefaults.standard.string(forKey: "useremail") {
+            print("saveuser: \(saveuser)") // 저장된 이메일 출력
 
-        let newDiary = DiaryDTO(diary: diaryContent, diaryDate: diaryDate, diaryEmoji: selectedEmoji)
-        
-        // API 호출
-        let urlString = "http://localhost:8084/addDiary"
-        guard let url = URL(string: urlString) else { return }
+            guard let diaryContent = contentTextView.text,
+                  let diaryDate = dateTextView.text else { return }
 
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let newDiary = DiaryDTO(diary: diaryContent, diaryDate: diaryDate, diaryEmoji: selectedEmoji, diaryUser: saveuser)
 
-        do {
-            let jsonData = try JSONEncoder().encode(newDiary)
-            request.httpBody = jsonData
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error adding diary: \(error)")
-                    return
-                }
-                
-                guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                    print("Server error")
-                    return
-                }
-                
+            // DiaryManager를 사용하여 다이어리 저장
+            DiaryManager.shared.saveDiary(diaryDTO: newDiary) { success, message in
                 DispatchQueue.main.async {
-                    // 성공적으로 추가된 후 이전 화면으로 돌아가기
-                    self.navigationController?.popViewController(animated: true)
+                    if success {
+                        // 성공적으로 추가된 후 이전 화면으로 돌아가기
+                        self.navigationController?.popViewController(animated: true)
+                    } else {
+                        // 실패 메시지를 출력
+                        print(message ?? "알 수 없는 오류")
+                    }
                 }
             }
-            
-            task.resume()
-        } catch {
-            print("Error encoding diary: \(error)")
         }
     }
 }

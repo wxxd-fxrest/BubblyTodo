@@ -9,6 +9,7 @@ import UIKit
 
 class DiaryDetailViewController: UIViewController {
     
+    var diaryId: Int64?
     var diaryDate: String? // 선택된 날짜를 받을 변수
     var diaryContent: String? // 일기 내용을 저장할 변수
     var diaryEmoji: String? // 일기 이모지를 저장할 변수
@@ -16,7 +17,7 @@ class DiaryDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+
         let plusButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(plusButtonTapped))
         
         // 버튼 색상 설정
@@ -25,47 +26,34 @@ class DiaryDetailViewController: UIViewController {
         navigationItem.rightBarButtonItems = [plusButton]
         
         // 날짜, 이모지, 내용을 가져오기
-        fetchDiaryContent()
+         if let diaryId = diaryId {
+             fetchDiaryContent(diaryId: diaryId) { diaryDTO, errorMessage in
+                 DispatchQueue.main.async {
+                     if let diaryDTO = diaryDTO {
+                         self.diaryContent = diaryDTO.diary
+                         self.diaryDate = diaryDTO.diaryDate
+                         self.diaryEmoji = diaryDTO.diaryEmoji
+                         self.displayDiaryContent() // UI 업데이트
+                     } else if let error = errorMessage {
+                         print("Error: \(error)") // 오류 메시지 출력
+                     }
+                 }
+             }
+         }
     }
     
-    func fetchDiaryContent() {
-        guard let diaryDate = diaryDate else { return }
-        
-        let urlString = "http://localhost:8084/diary/\(diaryDate)"
-        guard let url = URL(string: urlString) else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error fetching diary: \(error)")
-                return
-            }
-            
-            guard let data = data else { return }
-            do {
-                // JSON 디코딩
-                let diaryDTO = try JSONDecoder().decode(DiaryDTO.self, from: data)
-                self.diaryContent = diaryDTO.diary // 일기 내용
-                self.diaryDate = diaryDTO.diaryDate // 일기 날짜
-                self.diaryEmoji = diaryDTO.diaryEmoji // 일기 이모지
-                
-                // UI 업데이트는 메인 스레드에서 수행
-                DispatchQueue.main.async {
-                    self.displayDiaryContent()
-                }
-            } catch {
-                self.diaryContent = "아직 일기가 없어요!"// 일기 내용
-                self.diaryDate = diaryDate // 일기 날짜
-                print("Error decoding diary: \(error)")
-                // UI 업데이트는 메인 스레드에서 수행
-                DispatchQueue.main.async {
-                    self.displayDiaryContent()
-                }
-            }
+    func printDiaryContent() {
+        if let content = diaryContent {
+            print("Diary Content: \(content)") // 일기 내용 프린트
+        } else {
+            print("No diary content available.")
         }
-        
-        task.resume()
     }
     
+    func fetchDiaryContent(diaryId: Int64, completion: @escaping (DiaryDTO?, String?) -> Void) {
+        DiaryManager.shared.fetchDiaryContent(diaryId: diaryId, completion: completion)
+    }
+
     func displayDiaryContent() {
         // 이모지 레이블
         let emojiLabel = UILabel()
@@ -110,20 +98,38 @@ class DiaryDetailViewController: UIViewController {
     @objc func plusButtonTapped() {
         print("추가 버튼이 클릭되었습니다.")
         
-        // 데이터가 있는지 확인
-        if let diaryContent = self.diaryContent, diaryContent != "아직 일기가 없어요!" {
-            // EditDiaryViewController로 이동
-            let editDiaryVC = EditDiaryViewController()
-            editDiaryVC.diaryContent = diaryContent
-            editDiaryVC.diaryDate = diaryDate
-            editDiaryVC.diaryEmoji = diaryEmoji
-            
-            navigationController?.pushViewController(editDiaryVC, animated: true)
+        if let diaryId = diaryId {
+            fetchDiaryContent(diaryId: diaryId) { [weak self] diaryDTO, errorMessage in
+                guard let self = self else { return } // self에 대한 강한 참조를 방지
+
+                DispatchQueue.main.async {
+                    if let diaryDTO = diaryDTO {
+                        // 다이어리 내용을 업데이트하고 편집 화면으로 전환
+                        self.diaryId = diaryDTO.diaryId
+                        self.diaryContent = diaryDTO.diary
+                        self.diaryDate = diaryDTO.diaryDate
+                        self.diaryEmoji = diaryDTO.diaryEmoji
+                        self.displayDiaryContent() // UI 업데이트
+                        
+                        let editDiaryVC = EditDiaryViewController()
+                        editDiaryVC.diaryId = self.diaryId
+                        editDiaryVC.diaryContent = self.diaryContent // 다이어리 내용 전달
+                        editDiaryVC.diaryDate = self.diaryDate // 다이어리 날짜 전달
+                        editDiaryVC.diaryEmoji = self.diaryEmoji // 다이어리 이모지 전달
+                        
+                        self.navigationController?.pushViewController(editDiaryVC, animated: true)
+                    } else if let error = errorMessage {
+                        print("Error: \(error)") // 오류 메시지 출력
+                        let addDiaryVC = AddDiaryViewController()
+                        addDiaryVC.diaryDate = self.diaryDate // diaryDate 전달
+                        self.navigationController?.pushViewController(addDiaryVC, animated: true)
+                    }
+                }
+            }
         } else {
-            // AddDiaryViewController로 이동
+            // diaryId가 nil인 경우 새 다이어리 추가 화면으로 이동
             let addDiaryVC = AddDiaryViewController()
-            addDiaryVC.diaryDate = diaryDate // diaryDate 전달
-            
+            addDiaryVC.diaryDate = self.diaryDate // diaryDate 전달
             navigationController?.pushViewController(addDiaryVC, animated: true)
         }
     }

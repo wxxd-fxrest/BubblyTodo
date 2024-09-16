@@ -74,35 +74,27 @@ class AddTodoViewController: UIViewController {
     }
     
     func loadCategories() {
-        guard let url = URL(string: "http://localhost:8084/category") else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error fetching categories: \(error)")
-                return
-            }
+        if let saveuser = UserDefaults.standard.string(forKey: "useremail") {
+            print("saveuser: \(saveuser)") // 저장된 이메일 출력
             
-            guard let data = data else { return }
-            
-            do {
-                let categoryDTOList = try JSONDecoder().decode([CategoryDTO].self, from: data)
-                print("Fetched Categories: \(categoryDTOList)") // 추가된 디버깅
-                
-                self.categoryDictionary = Dictionary(uniqueKeysWithValues: categoryDTOList.map { ($0.category, ($0.categoryColor, $0.categoryId)) })
-
-                self.categories = categoryDTOList.map { $0.category } // 카테고리 이름 배열로 저장
-                
-                DispatchQueue.main.async {
-                    self.categoryPicker.reloadAllComponents()
+            CategoryManager.shared.loadCategories(for: saveuser) { [weak self] categoryDTOList, error in
+                if let error = error {
+                    print("Error loading categories: \(error.localizedDescription)")
+                    return
                 }
-            } catch {
-                print("Error decoding JSON: \(error)")
-            }
-        }
-        
-        task.resume()
-    }
 
+                if let categoryDTOList = categoryDTOList {
+                    DispatchQueue.main.async {
+                        self?.categoryDictionary = Dictionary(uniqueKeysWithValues: categoryDTOList.map { ($0.category, ($0.categoryColor, $0.categoryId)) })
+                        self?.categories = categoryDTOList.map { $0.category } // 카테고리 이름 배열로 저장
+                        self?.categoryPicker.reloadAllComponents() // 피커 뷰 리로드
+                    }
+                }
+            }
+        } else {
+            print("저장된 사용자 이메일이 없습니다.")
+        }
+    }
 
     @objc func doneButtonTapped() {
         guard let todoText = todoTextField.text, !todoText.isEmpty, let selectedCategory = selectedCategory else {
@@ -136,65 +128,20 @@ class AddTodoViewController: UIViewController {
             )
             
             print("todoDTO : \(todoDTO)")
-            // 서버에 저장하는 코드 추가
-            sendTodoToServer(todoDTO: todoDTO)
-        }
-    }
-
-
-    func sendTodoToServer(todoDTO: TodoDTO) {
-        guard let url = URL(string: "http://localhost:8084/bubbly-todo/addTodo") else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        // JSON 데이터 구성
-        let todoData: [String: Any] = [
-            "todo": todoDTO.todo,
-            "todoDate": todoDTO.todoDate, // LocalDate는 문자열로 변환
-            "todoState": todoDTO.todoState,
-            "todoUser": todoDTO.todoUser,// 사용자 이메일
-            "todoCategoryId": todoDTO.todoCategoryId,
-            "todoCategory": todoDTO.todoCategory, // 카테고리 이름
-            "todoCategoryColor": todoDTO.todoCategoryColor ?? "기본색상" // 카테고리 색상
-        ]
-        
-        // JSON 인코딩
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: todoData, options: [])
-        } catch {
-            print("Error serializing JSON: \(error)")
-            return
-        }
-        
-        // URLSession을 사용하여 요청 보내기
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error sending data: \(error)")
-                return
-            }
             
-            // 서버의 응답 처리
-            if let httpResponse = response as? HTTPURLResponse {
-                print("HTTP Status Code: \(httpResponse.statusCode)") // 상태 코드 출력
-                
-                if httpResponse.statusCode == 201 { // 성공적으로 생성된 경우
-                    print("ToDo 저장 성공")
-                } else {
-                    // 실패 처리
-                    if let data = data, let responseString = String(data: data, encoding: .utf8) {
-                        print("ToDo 저장 실패: \(responseString)") // 응답 내용 출력
+            // 서버에 저장하는 코드 추가
+            TodoManager.shared.sendTodoToServer(todoDTO: todoDTO) { success, message in
+                DispatchQueue.main.async {
+                    if success {
+                        print("ToDo 저장 성공: \(message ?? "")")
+                        // 추가적인 UI 업데이트가 필요한 경우 여기에 작성
                     } else {
-                        print("ToDo 저장 실패")
+                        print("ToDo 저장 실패: \(message ?? "알 수 없는 오류")")
                     }
                 }
             }
         }
-        
-        task.resume()
     }
-
 }
 
 // UIPickerViewDelegate 및 UIPickerViewDataSource 확장

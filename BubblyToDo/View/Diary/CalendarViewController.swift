@@ -13,6 +13,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     var currentDate: Date = Date() // 현재 날짜
     let calendar = Calendar.current
     var diaryDates: [String] = [] // 서버에서 가져온 날짜 목록
+    var diaryContents: [DiaryDTO] = [] // 전체 다이어리 데이터를 저장할 배열
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,30 +54,28 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     // 일기 날짜 목록 가져오기
     func fetchDiaryDates() {
-        let urlString = "http://localhost:8084/diary" // 실제 API URL로 변경
-        guard let url = URL(string: urlString) else { return }
-
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error fetching diary dates: \(error)")
-                return
-            }
-
-            guard let data = data else { return }
-            do {
-                // JSON 디코딩
-                let diaryDTOList = try JSONDecoder().decode([DiaryDTO].self, from: data)
-                self.diaryDates = diaryDTOList.map { $0.diaryDate } // 날짜만 추출
-
+        if let saveuser = UserDefaults.standard.string(forKey: "useremail") {
+            print("saveuser: \(saveuser)") // 저장된 이메일 출력
+            
+            // DiaryManager를 사용하여 다이어리 날짜 가져오기
+            DiaryManager.shared.fetchDiaryDates(for: saveuser) { diaryDTOList, errorMessage in
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData() // 데이터 업데이트 후 리로드
+                    if let dtos = diaryDTOList {
+                        // 전체 다이어리 DTO 배열을 저장
+                        self.diaryDates = dtos.map { $0.diaryDate } // 날짜 업데이트
+                        self.diaryContents = dtos // 전체 DTO 배열 저장 (필요 시 사용)
+
+                        // 가져온 전체 데이터 출력
+                        print("Fetched Diary DTOs: \(dtos)") // 콘솔에 전체 데이터 출력
+                        
+                        // 데이터 업데이트 후 리로드
+                        self.collectionView.reloadData()
+                    } else {
+                        print(errorMessage ?? "알 수 없는 오류")
+                    }
                 }
-            } catch {
-                print("Error decoding diary dates: \(error)")
             }
         }
-
-        task.resume()
     }
 
     // UICollectionViewDataSource
@@ -130,6 +130,15 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             let formattedDate = String(format: "%04d-%02d-%02d", year, month, day) // YYYY-MM-DD 형식
             
             diaryDetailVC.diaryDate = formattedDate // 날짜 설정
+            
+            // 선택된 날짜에 해당하는 다이어리 DTO 가져오기
+            if let index = diaryContents.firstIndex(where: { $0.diaryDate == formattedDate }) {
+                let selectedDiary = diaryContents[index]
+                diaryDetailVC.diaryContent = selectedDiary.diary // 일기 내용 설정
+                diaryDetailVC.diaryEmoji = selectedDiary.diaryEmoji // 이모지 설정
+                diaryDetailVC.diaryId = selectedDiary.diaryId // ID 설정 (필요 시)
+            }
+            
             navigationController?.pushViewController(diaryDetailVC, animated: true)
         }
     }

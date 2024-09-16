@@ -51,6 +51,7 @@ struct DiaryDTO: Codable {
     var diary: String
     var diaryDate: String
     var diaryEmoji: String
+    var diaryUser: String
 }
 
 struct TodoResponse: Codable {

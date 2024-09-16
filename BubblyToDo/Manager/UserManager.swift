@@ -14,7 +14,6 @@ class UserManager {
 
     // MARK: - 회원가입 메서드
     func signUp(userDTO: UserDTO, completion: @escaping (Bool, String?) -> Void) {
-//        let url = URL(string: "http://localhost:8084/bubbly-todo/signup")!
         guard let url = getAPIUrl(for: "signup") else {
             completion(false, "URL을 읽을 수 없습니다.")
             return
@@ -70,7 +69,6 @@ class UserManager {
 
     // MARK: - 로그인 메서드 추가
     func loginUser(userDTO: UserDTO, completion: @escaping (Bool, String?) -> Void) {
-//        let url = URL(string: "http://localhost:8084/bubbly-todo/login")!
         guard let url = getAPIUrl(for: "login") else {
             completion(false, "URL을 읽을 수 없습니다.")
             return
@@ -121,15 +119,5 @@ class UserManager {
         }
         
         task.resume()
-    }
-    
-    // MARK: - URL을 가져오는 메서드
-    private func getAPIUrl(for endpoint: String) -> URL? {
-        if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
-           let dict = NSDictionary(contentsOfFile: path),
-           let baseUrlString = dict["API_URL"] as? String {
-            return URL(string: "\(baseUrlString)/\(endpoint)")
-        }
-        return nil
     }
 }

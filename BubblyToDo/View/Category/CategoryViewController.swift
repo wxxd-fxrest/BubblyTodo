@@ -85,65 +85,27 @@ class CategoryViewController: UIViewController {
         
         if let saveuser = UserDefaults.standard.string(forKey: "useremail") {
             print("saveuser: \(saveuser)") // 저장된 이메일 출력
+            
             // CategoryDTO 생성
             print("카테고리 이름: \(categoryName), 선택된 색상: (R: \(Int(red)), G: \(Int(green)), B: \(Int(blue)), A: \(alpha))")
             print("category: \(categoryName), select Color: \(hexColor)")
             let categoryDTO = CategoryDTO(category: categoryName, categoryColor: hexColor, categoryUser: saveuser)
             print("categoryDTO \(categoryDTO)")
-            // 서버에 POST 요청 보내기
-            sendCategoryToServer(categoryDTO: categoryDTO)
-        }
-    }
-
-    // categoryDTO 출력은 잘 됨, 추가가 안 됨
-    func sendCategoryToServer(categoryDTO: CategoryDTO) {
-        guard let url = URL(string: "http://localhost:8084/category") else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let categoryData: [String: Any] = [
-            "category": categoryDTO.category,
-            "categoryColor": categoryDTO.categoryColor,
-            "categoryUser": categoryDTO.categoryUser
-        ]
-        
-        // JSON 인코딩
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: categoryData, options: [])
-        } catch {
-            print("Error serializing JSON: \(error)")
-            return
-        }
-        
-        // URLSession을 사용하여 요청 보내기
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error sending data: \(error)")
-                return
-            }
             
-            // 서버의 응답 처리
-            if let httpResponse = response as? HTTPURLResponse {
-                print("HTTP Status Code: \(httpResponse.statusCode)") // 상태 코드 출력
-                
-                if httpResponse.statusCode == 201 { // 성공적으로 생성된 경우
-                    print("카테고리 저장 성공")
-                } else {
-                    // 실패 처리
-                    if let data = data, let responseString = String(data: data, encoding: .utf8) {
-                        print("카테고리 저장 실패: \(responseString)") // 응답 내용 출력
+            // 서버에 POST 요청 보내기
+            CategoryManager.shared.sendCategoryToServer(categoryDTO: categoryDTO) { success, message in
+                DispatchQueue.main.async {
+                    if success {
+                        print("카테고리 저장 성공")
+                        // 성공 메시지를 사용자에게 표시하거나 다음 작업을 진행합니다.
                     } else {
-                        print("카테고리 저장 실패")
+                        print("카테고리 저장 실패: \(message ?? "알 수 없는 오류")")
+                        // 실패 메시지를 사용자에게 표시하는 등의 조치를 취합니다.
                     }
                 }
             }
         }
-        
-        task.resume()
     }
-
 }
 
 extension CategoryViewController: UIColorPickerViewControllerDelegate {

@@ -42,7 +42,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // 왼쪽에 달력 버튼 추가
         navigationItem.leftBarButtonItem = calendarButton
         
-        loadCategories() // 카테고리 로드
+        loadToDos() // 카테고리 로드
     }
     
     // 달력 버튼 클릭 시 동작
@@ -70,51 +70,26 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         ])
     }
     
-    func loadCategories() {
-        // UserDefaults에서 저장된 이메일을 가져옵니다.
-        if let savedUserEmail = UserDefaults.standard.string(forKey: "useremail") {
-            print("Saved user email: \(savedUserEmail)") // 저장된 이메일 출력
+    func loadToDos() {
+        if let saveuser = UserDefaults.standard.string(forKey: "useremail") {
+            print("saveuser: \(saveuser)") // 저장된 이메일 출력
             
-            // URL 생성
-            guard let url = URL(string: "http://localhost:8084\(savedUserEmail)") else {
-                print("Error: Invalid URL")
-                return
-            }
-            
-            // URLSession을 사용하여 데이터 요청
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                // 오류 처리
+            TodoManager.shared.loadCategories(for: saveuser) { [weak self] todoDTOList, error in
                 if let error = error {
-                    print("Error fetching categories: \(error)")
+                    print("Error loading categories: \(error.localizedDescription)")
                     return
                 }
-                
-                // 데이터가 없을 경우 처리
-                guard let data = data else {
-                    print("Error: No data received")
-                    return
-                }
-                
-                do {
-                    // JSON 디코딩
-                    let todoDTOList = try JSONDecoder().decode([TodoDTO].self, from: data)
-                    print("Fetched ToDos: \(todoDTOList)") // 디버깅 출력
-                    
-                    // Main 스레드에서 UI 업데이트
-                    DispatchQueue.main.async {
-                        self.todoDTOList = todoDTOList // 받아온 데이터를 저장
-                        self.tableView.reloadData() // 테이블 뷰 리로드
-                    }
-                    
-                } catch {
-                    print("Error decoding JSON: \(error)")
+
+                guard let todoDTOList = todoDTOList else { return }
+
+                // Main 스레드에서 UI 업데이트
+                DispatchQueue.main.async {
+                    self?.todoDTOList = todoDTOList // 받아온 데이터를 저장
+                    self?.tableView.reloadData() // 테이블 뷰 리로드
                 }
             }
-            
-            // 데이터 태스크 시작
-            task.resume()
         } else {
-            print("Error: No user email found in UserDefaults")
+            print("저장된 사용자 이메일이 없습니다.")
         }
     }
 
@@ -142,22 +117,18 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - 스와이프 액션 추가
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let editAction = UITableViewRowAction(style: .normal, title: "수정") { (action, index) in
-            // 수정 로직 구현 (수정할 뷰 컨트롤러로 이동)
-//            let editVC = EditTodoViewController()
-//            self.navigationController?.pushViewController(editVC, animated: true)
-            
             // 수정할 투두의 ID를 가져옴
-              let todoToEdit = self.todoDTOList[indexPath.row]
-              
-              // todoId가 nil인지 확인
-              if let todoId = todoToEdit.todoId {
-                  // EditTodoViewController로 이동하고 todoId를 전달
-                  let editVC = EditTodoViewController(todoId: todoId, todo: todoToEdit)
-                  self.navigationController?.pushViewController(editVC, animated: true)
-              } else {
-                  // todoId가 nil인 경우의 처리
-                  print("Error: todoId is nil.")
-              }
+            let todoToEdit = self.todoDTOList[indexPath.row]
+            
+            // todoId가 nil인지 확인
+            if let todoId = todoToEdit.todoId {
+                // EditTodoViewController로 이동하고 todoId를 전달
+                let editVC = EditTodoViewController(todoId: todoId, todo: todoToEdit)
+                self.navigationController?.pushViewController(editVC, animated: true)
+            } else {
+                // todoId가 nil인 경우의 처리
+                print("Error: todoId is nil.")
+            }
         }
         
         editAction.backgroundColor = .blue // 수정 버튼 색상 설정
@@ -168,18 +139,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
                 if let todoId = self.todoDTOList[indexPath.row].todoId {
-                    self.deleteTodoFromServer(todoId: todoId) { success in
-                        DispatchQueue.main.async {
-                            if success {
-                                self.todoDTOList.remove(at: indexPath.row)
-                                tableView.deleteRows(at: [indexPath], with: .fade)
-                            } else {
-                                let errorAlert = UIAlertController(title: "오류", message: "삭제할 수 없습니다.", preferredStyle: .alert)
-                                errorAlert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-                                self.present(errorAlert, animated: true, completion: nil)
-                            }
-                        }
-                    }
+                    self.deleteTodo(todoId: todoId) // 클로저를 전달하지 않도록 수정
                 }
             }))
             self.present(alert, animated: true, completion: nil)
@@ -187,34 +147,26 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         return [editAction, deleteAction] // 수정 버튼과 삭제 버튼 모두 반환
     }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true // 모든 셀을 편집 가능하게 함
-    }
-    
-    
-    // MARK: - 서버에 삭제 요청
-    func deleteTodoFromServer(todoId: Int64, completion: @escaping (Bool) -> Void) {
-        guard let url = URL(string: "http://localhost:8084/bubbly-todo/delete/\(todoId)") else {
-            completion(false)
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET" // GET 요청
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error deleting todo: \(error)")
-                completion(false)
-                return
+
+    func deleteTodo(todoId: Int64) {
+        TodoManager.shared.deleteTodoFromServer(todoId: todoId) { success in
+            DispatchQueue.main.async {
+                if success {
+                    print("할 일이 성공적으로 삭제되었습니다.")
+                    // 여기서 테이블 뷰를 업데이트하거나 필요한 UI 조치를 취합니다.
+                    if let index = self.todoDTOList.firstIndex(where: { $0.todoId == todoId }) {
+                        self.todoDTOList.remove(at: index)
+                        self.tableView.reloadData() // 테이블 뷰 리로드
+                    }
+                } else {
+                    print("할 일 삭제에 실패했습니다.")
+                    // 실패 메시지를 사용자에게 표시하는 등의 조치를 취합니다.
+                    let errorAlert = UIAlertController(title: "오류", message: "삭제할 수 없습니다.", preferredStyle: .alert)
+                    errorAlert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                    self.present(errorAlert, animated: true, completion: nil)
+                }
             }
-            
-            // 성공적으로 삭제된 경우
-            completion(true)
         }
-        
-        task.resume()
     }
     
     // MARK: - Navigation

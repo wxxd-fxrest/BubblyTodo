@@ -44,6 +44,10 @@
 		0BA4D4932C983D0D0097F208 /* UserTextFieldFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D4922C983D0D0097F208 /* UserTextFieldFactory+.swift */; };
 		0BA4D4952C9845C00097F208 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D4942C9845C00097F208 /* UserManager.swift */; };
 		0BA4D4992C987BE50097F208 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BA4D4982C987BE50097F208 /* Config.plist */; };
+		0BA4D49B2C9881340097F208 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D49A2C9881340097F208 /* ApiManager.swift */; };
+		0BA4D49D2C9882430097F208 /* ToDoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D49C2C9882430097F208 /* ToDoManager.swift */; };
+		0BA4D49F2C988DE70097F208 /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D49E2C988DE70097F208 /* CategoryManager.swift */; };
+		0BA4D4A12C989D440097F208 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D4A02C989D440097F208 /* DiaryManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +88,10 @@
 		0BA4D4922C983D0D0097F208 /* UserTextFieldFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTextFieldFactory+.swift"; sourceTree = "<group>"; };
 		0BA4D4942C9845C00097F208 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		0BA4D4982C987BE50097F208 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		0BA4D49A2C9881340097F208 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		0BA4D49C2C9882430097F208 /* ToDoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoManager.swift; sourceTree = "<group>"; };
+		0BA4D49E2C988DE70097F208 /* CategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
+		0BA4D4A02C989D440097F208 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +264,10 @@
 			isa = PBXGroup;
 			children = (
 				0BA4D4942C9845C00097F208 /* UserManager.swift */,
+				0BA4D49A2C9881340097F208 /* ApiManager.swift */,
+				0BA4D49C2C9882430097F208 /* ToDoManager.swift */,
+				0BA4D49E2C988DE70097F208 /* CategoryManager.swift */,
+				0BA4D4A02C989D440097F208 /* DiaryManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -423,14 +435,18 @@
 				0B8025AA2C974E4600B1926E /* EditDiaryViewController.swift in Sources */,
 				0B8025A42C970E5D00B1926E /* BubblyViewController.swift in Sources */,
 				0B31D06B2C92F4A60053EDC3 /* SceneDelegate.swift in Sources */,
+				0BA4D49F2C988DE70097F208 /* CategoryManager.swift in Sources */,
 				0B8025AC2C974E5C00B1926E /* AddDiaryViewController.swift in Sources */,
 				0BA4D4952C9845C00097F208 /* UserManager.swift in Sources */,
 				0BA4D4872C9833060097F208 /* ActivityIndicatorHelper.swift in Sources */,
 				0B6082D92C934C890003AEBB /* LoginViewController.swift in Sources */,
 				0B9C0AE12C961E0D00ECBB31 /* EditTodoViewController.swift in Sources */,
 				0B8025A62C9740BA00B1926E /* CalendarViewController.swift in Sources */,
+				0BA4D49D2C9882430097F208 /* ToDoManager.swift in Sources */,
 				0BA4D4812C98322A0097F208 /* UIColor.swift in Sources */,
+				0BA4D49B2C9881340097F208 /* ApiManager.swift in Sources */,
 				0B6082D72C934C7D0003AEBB /* MainViewController.swift in Sources */,
+				0BA4D4A12C989D440097F208 /* DiaryManager.swift in Sources */,
 				0BA4D4932C983D0D0097F208 /* UserTextFieldFactory+.swift in Sources */,
 				0B9C0ADF2C9604D700ECBB31 /* AddTodoViewController.swift in Sources */,
 				0B9C0ADD2C95F7A600ECBB31 /* CategoryViewController.swift in Sources */,

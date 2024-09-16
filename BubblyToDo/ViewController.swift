@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        fetchUserInfo()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -47,30 +46,6 @@ class ViewController: UIViewController {
             signupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             signupButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20)
         ])
-    }
-    
-    
-    func fetchUserInfo() {
-        if let saveuser = UserDefaults.standard.string(forKey: "useremail") {
-            print("saveuser: \(saveuser)") // 저장된 이메일 출력
-            
-            // 사용자 정보를 가져오기
-            fetchUserByEmail(useremail: saveuser) { userDTO, error in
-                if let error = error {
-                    print("Error: \(error.localizedDescription)")
-                } else if let userDTO = userDTO {
-                    print("User found: \(userDTO)")
-                    
-                    // MainViewController로 이동
-                    DispatchQueue.main.async {
-                        let mainVC = MainViewController()
-                        self.navigationController?.pushViewController(mainVC, animated: true)
-                    }
-                }
-            }
-        } else {
-            print("저장된 사용자 이메일이 없습니다.")
-        }
     }
     
     @objc private func loginButtonTapped() {
