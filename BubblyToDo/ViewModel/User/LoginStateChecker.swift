@@ -7,7 +7,6 @@
 
 import Foundation
 
-// 사용자 이메일을 기반으로 회원 정보를 조회하는 함수
 func fetchUserByEmail(useremail: String, completion: @escaping (UserDTO?, Error?) -> Void) {
     let urlString = "http://localhost:8084/\(useremail)"
     guard let url = URL(string: urlString) else {
