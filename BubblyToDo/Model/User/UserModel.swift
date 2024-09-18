@@ -53,7 +53,3 @@ struct DiaryDTO: Codable {
     var diaryEmoji: String
     var diaryUser: String
 }
-
-struct TodoResponse: Codable {
-    let todos: [TodoDTO]
-}

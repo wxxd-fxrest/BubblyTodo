@@ -15,7 +15,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     var diaryDates: [String] = [] // 서버에서 가져온 날짜 목록
     var diaryContents: [DiaryDTO] = [] // 전체 다이어리 데이터를 저장할 배열
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

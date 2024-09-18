@@ -9,33 +9,33 @@ import Foundation
 
 class TodoManager {
     static let shared = TodoManager() // 싱글톤 인스턴스
-
+    
     private init() {}
     // MARK: - ToDo List
-    func loadCategories(for userEmail: String, completion: @escaping ([TodoDTO]?, Error?) -> Void) {
-        guard let url = getAPIUrl(for: "list/\(userEmail)") else {
-            completion(nil, NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "유효한 URL이 아닙니다."]))
+    func loadCategories(for date: String, userEmail: String, completion: @escaping ([TodoDTO]?, Error?) -> Void) {
+        guard let url = getAPIUrl(for: "list/\(userEmail)/\(date)") else {
+            completion(nil, NSError(domain: "Invalid URL", code: 0, userInfo: nil))
             return
         }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                print("Error fetching categories: \(error)")
+                print("Error fetching todos: \(error.localizedDescription)")
                 completion(nil, error)
                 return
             }
             
             guard let data = data else {
-                completion(nil, NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "데이터 없음"]))
+                print("받은 데이터가 없습니다.")
+                completion(nil, NSError(domain: "No Data", code: 1, userInfo: nil))
                 return
             }
             
             do {
-                let todoDTOList = try JSONDecoder().decode([TodoDTO].self, from: data)
-                print("Fetched ToDos: \(todoDTOList)") // 디버깅 출력
-                completion(todoDTOList, nil)
+                let todoList = try JSONDecoder().decode([TodoDTO].self, from: data)
+                completion(todoList, nil) // 성공적으로 디코딩한 투두 리스트 반환
             } catch {
-                print("Error decoding JSON: \(error)")
+                print("JSON 디코딩 오류: \(error.localizedDescription)")
                 completion(nil, error)
             }
         }
@@ -104,16 +104,16 @@ class TodoManager {
     }
     
     // MARK: - Edit ToDo
-    func updateTodoOnServer(todoId: Int64, todo: EditTodoDTO, completion: @escaping (Bool, String?) -> Void) {        
+    func updateTodoOnServer(todoId: Int64, todo: EditTodoDTO, completion: @escaping (Bool, String?) -> Void) {
         guard let url = getAPIUrl(for: "update/\(todoId)") else {
             completion(false, "유효한 URL이 아닙니다.")
             return
         }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST" // POST 요청
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
         let encoder = JSONEncoder()
         do {
             let jsonData = try encoder.encode(todo) // EditTodoDTO를 JSON으로 인코딩
@@ -126,7 +126,7 @@ class TodoManager {
                     completion(false, "업데이트 실패: \(error.localizedDescription)")
                     return
                 }
-
+                
                 if let httpResponse = response as? HTTPURLResponse {
                     print("Response status code: \(httpResponse.statusCode)") // 응답 상태 코드 확인
                     if httpResponse.statusCode == 200, let data = data,
@@ -154,7 +154,7 @@ class TodoManager {
             completion(false)
             return
         }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE" // DELETE 요청으로 변경
         
