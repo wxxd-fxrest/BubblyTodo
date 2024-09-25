@@ -27,6 +27,13 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
+        
+        //        navigationItem.title = "회원가입"
+        //        // 타이틀 색상 및 폰트 설정
+        //        navigationController?.navigationBar.titleTextAttributes = [
+        //            .foregroundColor: MySpecialColors.MainColor, // 원하는 색상으로 설정
+        //            .font: UIFont.pretendard(style: .semiBold, size: 18, isScaled: true) // 원하는 폰트 설정
+        //        ]
     }
     
     private func setupUI() {

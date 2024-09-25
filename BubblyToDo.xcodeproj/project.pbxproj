@@ -52,6 +52,9 @@
 		0BFF9FA92CA3EC3A0046DB50 /* StartUserFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FA82CA3EC3A0046DB50 /* StartUserFactory+.swift */; };
 		0BFF9FAB2CA3EC690046DB50 /* ButtonFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FAA2CA3EC690046DB50 /* ButtonFactory+.swift */; };
 		0BFF9FAD2CA3F05D0046DB50 /* UIFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FAC2CA3F05D0046DB50 /* UIFactory+.swift */; };
+		0BFF9FAF2CA461960046DB50 /* SecurityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FAE2CA461960046DB50 /* SecurityViewController.swift */; };
+		0BFF9FB62CA4680F0046DB50 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FB52CA4680F0046DB50 /* SignupView.swift */; };
+		0BFF9FB82CA469620046DB50 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FB72CA469620046DB50 /* SignupViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +103,9 @@
 		0BFF9FA82CA3EC3A0046DB50 /* StartUserFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StartUserFactory+.swift"; sourceTree = "<group>"; };
 		0BFF9FAA2CA3EC690046DB50 /* ButtonFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonFactory+.swift"; sourceTree = "<group>"; };
 		0BFF9FAC2CA3F05D0046DB50 /* UIFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFactory+.swift"; sourceTree = "<group>"; };
+		0BFF9FAE2CA461960046DB50 /* SecurityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityViewController.swift; sourceTree = "<group>"; };
+		0BFF9FB52CA4680F0046DB50 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		0BFF9FB72CA469620046DB50 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,8 +145,9 @@
 				0B31D06C2C92F4A60053EDC3 /* ViewController.swift */,
 				0BA4D4652C98305A0097F208 /* Manager */,
 				0BA4D4562C982F4D0097F208 /* Model */,
-				0BA4D4902C98342D0097F208 /* ViewModel */,
 				0BA4D4572C982F540097F208 /* View */,
+				0BA4D4902C98342D0097F208 /* ViewModel */,
+				0BFF9FB02CA467A20046DB50 /* Controller */,
 				0BA4D4662C9830740097F208 /* Resource */,
 				0BA4D4912C98352A0097F208 /* Extensions */,
 				0B31D0762C92F4A80053EDC3 /* Info.plist */,
@@ -163,10 +170,10 @@
 		0BA4D4572C982F540097F208 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0BA4D4602C982F9A0097F208 /* User */,
-				0BA4D45F2C982F960097F208 /* Todo */,
-				0BA4D45E2C982F900097F208 /* Category */,
-				0BA4D45D2C982F8B0097F208 /* Diary */,
+				0BFF9FB12CA467E20046DB50 /* User */,
+				0BFF9FB22CA467E50046DB50 /* Todo */,
+				0BFF9FB32CA467EB0046DB50 /* Category */,
+				0BFF9FB42CA467F40046DB50 /* Diary */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -175,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				0B6082DE2C9367360003AEBB /* LoginStateChecker.swift */,
+				0BFF9FB72CA469620046DB50 /* SignupViewModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -235,6 +243,7 @@
 			children = (
 				0B6082DA2C934C940003AEBB /* SignupViewController.swift */,
 				0B6082D82C934C890003AEBB /* LoginViewController.swift */,
+				0BFF9FAE2CA461960046DB50 /* SecurityViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -350,6 +359,46 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		0BFF9FB02CA467A20046DB50 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0BA4D4602C982F9A0097F208 /* User */,
+				0BA4D45F2C982F960097F208 /* Todo */,
+				0BA4D45E2C982F900097F208 /* Category */,
+				0BA4D45D2C982F8B0097F208 /* Diary */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0BFF9FB12CA467E20046DB50 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				0BFF9FB52CA4680F0046DB50 /* SignupView.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		0BFF9FB22CA467E50046DB50 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Todo;
+			sourceTree = "<group>";
+		};
+		0BFF9FB32CA467EB0046DB50 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		0BFF9FB42CA467F40046DB50 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -438,6 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BFF9FB82CA469620046DB50 /* SignupViewModel.swift in Sources */,
 				0B6082DB2C934C940003AEBB /* SignupViewController.swift in Sources */,
 				0BA4D47F2C98320F0097F208 /* UIFont.swift in Sources */,
 				0B6082DF2C9367360003AEBB /* LoginStateChecker.swift in Sources */,
@@ -447,11 +497,13 @@
 				0BFF9FA92CA3EC3A0046DB50 /* StartUserFactory+.swift in Sources */,
 				0B8025AA2C974E4600B1926E /* EditDiaryViewController.swift in Sources */,
 				0B8025A42C970E5D00B1926E /* BubblyViewController.swift in Sources */,
+				0BFF9FB62CA4680F0046DB50 /* SignupView.swift in Sources */,
 				0B31D06B2C92F4A60053EDC3 /* SceneDelegate.swift in Sources */,
 				0BFF9FA72CA3E9C20046DB50 /* LogoFactory+.swift in Sources */,
 				0BA4D49F2C988DE70097F208 /* CategoryManager.swift in Sources */,
 				0B8025AC2C974E5C00B1926E /* AddDiaryViewController.swift in Sources */,
 				0BA4D4952C9845C00097F208 /* UserManager.swift in Sources */,
+				0BFF9FAF2CA461960046DB50 /* SecurityViewController.swift in Sources */,
 				0BA4D4872C9833060097F208 /* ActivityIndicatorHelper.swift in Sources */,
 				0B6082D92C934C890003AEBB /* LoginViewController.swift in Sources */,
 				0B9C0AE12C961E0D00ECBB31 /* EditTodoViewController.swift in Sources */,

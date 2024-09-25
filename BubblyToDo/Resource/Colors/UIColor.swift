@@ -41,8 +41,10 @@ enum MySpecialColors {
     static let TermMainColor = UIColor(hex: "#CCDDF1")
     static let TermTextColor = UIColor(hex: "#91929F")
     static let TextColor = UIColor(hex: "#4C4C57")
+    static let TextFieldFontColor = UIColor(hex: "#7E7F8A")
     static let WhiteColor = UIColor(hex: "#FCFCFC")
-    static let FieldColor = UIColor(hex: "#F0F5FF")
+    static let TextFieldColor = UIColor(hex: "#F0F5FF")
+    static let RedColor = UIColor(hex: "#FC2119")
 
     //color asset
     static let customColor  = UIColor(named: "")

@@ -21,7 +21,7 @@ class PaddedTextField: UITextField {
     }
 }
 
-//// horizontal padding
+// horizontal padding
 class HorizontalPaddedTextField: UITextField {
     var horizontalPadding: CGFloat = 8 // 좌우 패딩값
     var verticalPadding: CGFloat = 0 // 상하 패딩값
@@ -89,6 +89,8 @@ class StartUserFactory {
             $0.leftPadding = leftPadding
             $0.rightPadding = rightPadding
             $0.clearButtonMode = .whileEditing // 기본 클리어 버튼 활성화
+            $0.autocorrectionType = .no
+            $0.spellCheckingType = .no
         }
     }
     
@@ -104,6 +106,8 @@ class StartUserFactory {
             $0.leftPadding = leftPadding
             $0.rightPadding = rightPadding
             $0.clearButtonMode = .whileEditing // 기본 클리어 버튼 활성화
+            $0.autocorrectionType = .no
+            $0.spellCheckingType = .no
         }
     }
 }

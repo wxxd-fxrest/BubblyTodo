@@ -25,8 +25,17 @@ class ViewController: UIViewController {
     private lazy var basicsView = UIFactory.makeView(backgroundColor: .clear, cornerRadius: 0)
     
     // Button
-    private lazy var signupButton = ButtonFactory.longButton(title: "회원가입", titleColor: MySpecialColors.WhiteColor, backgroundColor: MySpecialColors.MainColor, cornerRadius: 8, target: self, action: #selector(signupButtonTapped))
-    private lazy var loginButton = ButtonFactory.longButton(title: "로그인", titleColor: MySpecialColors.MainColor, backgroundColor: MySpecialColors.TermMainColor, cornerRadius: 8, target: self, action: #selector(loginButtonTapped))
+    private lazy var signupButton: UIButton = {
+        let button = ButtonFactory.longButton(title: "회원가입", titleColor: MySpecialColors.WhiteColor, backgroundColor: MySpecialColors.MainColor, cornerRadius: 8)
+        button.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var loginButton: UIButton = {
+        let button = ButtonFactory.longButton(title: "로그인", titleColor: MySpecialColors.MainColor, backgroundColor: MySpecialColors.TermMainColor, cornerRadius: 8)
+        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     private lazy var buttonStackView: UIStackView = UIFactory.makeStackView(
         arrangedSubviews: [signupButton, loginButton],
