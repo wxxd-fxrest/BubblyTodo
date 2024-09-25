@@ -48,6 +48,10 @@
 		0BA4D49D2C9882430097F208 /* ToDoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D49C2C9882430097F208 /* ToDoManager.swift */; };
 		0BA4D49F2C988DE70097F208 /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D49E2C988DE70097F208 /* CategoryManager.swift */; };
 		0BA4D4A12C989D440097F208 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D4A02C989D440097F208 /* DiaryManager.swift */; };
+		0BFF9FA72CA3E9C20046DB50 /* LogoFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FA62CA3E9C10046DB50 /* LogoFactory+.swift */; };
+		0BFF9FA92CA3EC3A0046DB50 /* StartUserFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FA82CA3EC3A0046DB50 /* StartUserFactory+.swift */; };
+		0BFF9FAB2CA3EC690046DB50 /* ButtonFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FAA2CA3EC690046DB50 /* ButtonFactory+.swift */; };
+		0BFF9FAD2CA3F05D0046DB50 /* UIFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FAC2CA3F05D0046DB50 /* UIFactory+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +96,10 @@
 		0BA4D49C2C9882430097F208 /* ToDoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoManager.swift; sourceTree = "<group>"; };
 		0BA4D49E2C988DE70097F208 /* CategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
 		0BA4D4A02C989D440097F208 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
+		0BFF9FA62CA3E9C10046DB50 /* LogoFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogoFactory+.swift"; sourceTree = "<group>"; };
+		0BFF9FA82CA3EC3A0046DB50 /* StartUserFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StartUserFactory+.swift"; sourceTree = "<group>"; };
+		0BFF9FAA2CA3EC690046DB50 /* ButtonFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonFactory+.swift"; sourceTree = "<group>"; };
+		0BFF9FAC2CA3F05D0046DB50 /* UIFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFactory+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +299,10 @@
 				0BA4D4842C9832D10097F208 /* KeyboardTap.swift */,
 				0BA4D4862C9833060097F208 /* ActivityIndicatorHelper.swift */,
 				0BA4D4922C983D0D0097F208 /* UserTextFieldFactory+.swift */,
+				0BFF9FA62CA3E9C10046DB50 /* LogoFactory+.swift */,
+				0BFF9FAC2CA3F05D0046DB50 /* UIFactory+.swift */,
+				0BFF9FA82CA3EC3A0046DB50 /* StartUserFactory+.swift */,
+				0BFF9FAA2CA3EC690046DB50 /* ButtonFactory+.swift */,
 			);
 			path = UIFactorys;
 			sourceTree = "<group>";
@@ -432,9 +444,11 @@
 				0B31D06D2C92F4A60053EDC3 /* ViewController.swift in Sources */,
 				0B8025A82C97422400B1926E /* DiaryDetailViewController.swift in Sources */,
 				0B31D0692C92F4A60053EDC3 /* AppDelegate.swift in Sources */,
+				0BFF9FA92CA3EC3A0046DB50 /* StartUserFactory+.swift in Sources */,
 				0B8025AA2C974E4600B1926E /* EditDiaryViewController.swift in Sources */,
 				0B8025A42C970E5D00B1926E /* BubblyViewController.swift in Sources */,
 				0B31D06B2C92F4A60053EDC3 /* SceneDelegate.swift in Sources */,
+				0BFF9FA72CA3E9C20046DB50 /* LogoFactory+.swift in Sources */,
 				0BA4D49F2C988DE70097F208 /* CategoryManager.swift in Sources */,
 				0B8025AC2C974E5C00B1926E /* AddDiaryViewController.swift in Sources */,
 				0BA4D4952C9845C00097F208 /* UserManager.swift in Sources */,
@@ -442,6 +456,7 @@
 				0B6082D92C934C890003AEBB /* LoginViewController.swift in Sources */,
 				0B9C0AE12C961E0D00ECBB31 /* EditTodoViewController.swift in Sources */,
 				0B8025A62C9740BA00B1926E /* CalendarViewController.swift in Sources */,
+				0BFF9FAB2CA3EC690046DB50 /* ButtonFactory+.swift in Sources */,
 				0BA4D49D2C9882430097F208 /* ToDoManager.swift in Sources */,
 				0BA4D4812C98322A0097F208 /* UIColor.swift in Sources */,
 				0BA4D49B2C9881340097F208 /* ApiManager.swift in Sources */,
@@ -450,6 +465,7 @@
 				0BA4D4932C983D0D0097F208 /* UserTextFieldFactory+.swift in Sources */,
 				0B9C0ADF2C9604D700ECBB31 /* AddTodoViewController.swift in Sources */,
 				0B9C0ADD2C95F7A600ECBB31 /* CategoryViewController.swift in Sources */,
+				0BFF9FAD2CA3F05D0046DB50 /* UIFactory+.swift in Sources */,
 				0BA4D4832C98329D0097F208 /* UIView+.swift in Sources */,
 				0BA4D4852C9832D10097F208 /* KeyboardTap.swift in Sources */,
 				0B6082DD2C934CB40003AEBB /* UserModel.swift in Sources */,

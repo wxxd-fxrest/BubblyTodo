@@ -6,8 +6,35 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
+    // Logo
+    private lazy var logoView =  UIFactory.makeView(backgroundColor: .clear, cornerRadius: 0)
+    private lazy var logoText = LogoFactory.logoText(LogoInfoText: "Bubbly ToDo")
+    private lazy var logoBottomText = LogoFactory.logoBottomText(LogoInfoText: "반가워요, Bubbly입니다!")
+    private lazy var logoStackView: UIStackView = UIFactory.makeStackView(
+        arrangedSubviews: [logoText, logoBottomText],
+        axis: .vertical,
+        spacing: 14,
+        alignment: .center,
+        distribution: .fill
+    )
+    
+    // 기본 View
+    private lazy var basicsView = UIFactory.makeView(backgroundColor: .clear, cornerRadius: 0)
+    
+    // Button
+    private lazy var signupButton = ButtonFactory.longButton(title: "회원가입", titleColor: MySpecialColors.WhiteColor, backgroundColor: MySpecialColors.MainColor, cornerRadius: 8, target: self, action: #selector(signupButtonTapped))
+    private lazy var loginButton = ButtonFactory.longButton(title: "로그인", titleColor: MySpecialColors.MainColor, backgroundColor: MySpecialColors.TermMainColor, cornerRadius: 8, target: self, action: #selector(loginButtonTapped))
+    
+    private lazy var buttonStackView: UIStackView = UIFactory.makeStackView(
+        arrangedSubviews: [signupButton, loginButton],
+        axis: .vertical,
+        spacing: 14,
+        alignment: .fill,
+        distribution: .fillEqually
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,30 +49,40 @@ class ViewController: UIViewController {
     }
     
     private func setupUI() {
-        // 로그인 버튼
-        let loginButton = UIButton(type: .system)
-        loginButton.setTitle("로그인", for: .normal)
-        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = MySpecialColors.WhiteColor
         
-        // 회원가입 버튼
-        let signupButton = UIButton(type: .system)
-        signupButton.setTitle("회원가입", for: .normal)
-        signupButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
-        signupButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubviews(logoView, basicsView)
+        logoView.addSubviews(logoStackView)
+        basicsView.addSubviews(buttonStackView)
         
-        // 뷰에 버튼 추가
-        view.addSubview(loginButton)
-        view.addSubview(signupButton)
+        setupLogoViewUI()
+        setupButtonViewUI()
+    }
+    
+    private func setupLogoViewUI() {
+        logoView.snp.makeConstraints {
+            $0.top.equalTo(view.snp.top).offset(240)
+            $0.leading.trailing.equalToSuperview().inset(64)
+            $0.height.equalTo(80)
+        }
         
-        // 버튼 오토레이아웃 설정
-        NSLayoutConstraint.activate([
-            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
-            
-            signupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            signupButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20)
-        ])
+        logoStackView.snp.makeConstraints {
+            $0.height.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
+    }
+    
+    private func setupButtonViewUI() {
+        basicsView.snp.makeConstraints {
+            $0.bottom.equalTo(view.snp.bottom).offset(-100)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(110)
+        }
+        
+        buttonStackView.snp.makeConstraints {
+            $0.height.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
     }
     
     @objc private func loginButtonTapped() {

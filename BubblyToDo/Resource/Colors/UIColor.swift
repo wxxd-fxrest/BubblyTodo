@@ -37,7 +37,12 @@ extension UIColor {
 
 enum MySpecialColors {
     //hex code
-    static let MainColor = UIColor(hex: "#12A76E")
+    static let MainColor = UIColor(hex: "#4C73C2")
+    static let TermMainColor = UIColor(hex: "#CCDDF1")
+    static let TermTextColor = UIColor(hex: "#91929F")
+    static let TextColor = UIColor(hex: "#4C4C57")
+    static let WhiteColor = UIColor(hex: "#FCFCFC")
+    static let FieldColor = UIColor(hex: "#F0F5FF")
 
     //color asset
     static let customColor  = UIColor(named: "")
