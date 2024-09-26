@@ -9,78 +9,79 @@ import UIKit
 import SnapKit
 import Then
 
-class LoginViewController: UIViewController {
-    // UI 요소들
-    let emailTextField = UserTextFieldFactory.createEmailTextField()
-    let passwordTextField = UserTextFieldFactory.createPasswordTextField()
-    
-    let loginButton = UIButton().then {
-        $0.setTitle("로그인", for: .normal)
-        $0.backgroundColor = .systemBlue
-        $0.setTitleColor(.white, for: .normal)
-        $0.layer.cornerRadius = 5
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-    }
+class LoginViewController: UIViewController, UITextFieldDelegate {
+    private var loginView = LoginView()
+    private var viewModel = LoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        setupUI()
-        
-        //        navigationItem.title = "회원가입"
-        //        // 타이틀 색상 및 폰트 설정
-        //        navigationController?.navigationBar.titleTextAttributes = [
-        //            .foregroundColor: MySpecialColors.MainColor, // 원하는 색상으로 설정
-        //            .font: UIFont.pretendard(style: .semiBold, size: 18, isScaled: true) // 원하는 폰트 설정
-        //        ]
+        setupNavigationUI()
+        setupView()
     }
     
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubviews(emailTextField, passwordTextField, loginButton)
-
-        // Auto Layout 설정
-        emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
-            make.leading.trailing.equalTo(view).inset(20)
-            make.height.equalTo(40)
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    private func setupNavigationUI() {
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = MySpecialColors.MainColor
+    }
+    
+    private func setupView() {
+        view.addSubview(loginView)
+        loginView.frame = view.bounds
         
-        passwordTextField.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(20)
-            make.leading.trailing.equalTo(view).inset(20)
-            make.height.equalTo(40)
-        }
-
-        loginButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(30)
-            make.leading.trailing.equalTo(view).inset(20)
-            make.height.equalTo(50)
-        }
+        // Button에 target과 action 추가
+        loginView.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        
+        loginView.emailTextField.delegate = self
+        loginView.passwordTextField.delegate = self
     }
     
     @objc func loginButtonTapped() {
-        guard let email = emailTextField.text,
-              let password = passwordTextField.text else { return }
+        guard let email = loginView.emailTextField.text,
+              !email.isEmpty, // 이메일이 비어있지 않은지 확인
+              let password = loginView.passwordTextField.text,
+              !password.isEmpty // 비밀번호가 비어있지 않은지 확인
+        else {
+            loginView.alertText.text = "⚠ 모든 필드를 입력해 주세요."
+            loginView.alertText.textColor = MySpecialColors.RedColor
+            return
+        }
+
+        // ViewModel 업데이트
+        viewModel.updateEmail(email)
+        viewModel.updatePassword(password)
         
-        // User 모델 생성
-        let userDTO = UserDTO(userEmail: email, userPassword: password)
-        
-        print("Email: \(userDTO.userEmail), Password: \(userDTO.userPassword)")
-        
-        // UserManager를 사용하여 로그인 요청
-        UserManager.shared.loginUser(userDTO: userDTO) { success, errorMessage in
+        // 로그인 요청
+        viewModel.login { success, errorMessage in
             if success {
                 // MainViewController로 이동
-                let mainVC = MainViewController()
+                let mainVC = todoMainViewController()
                 self.navigationController?.pushViewController(mainVC, animated: true)
             } else {
                 // 로그인 실패 처리
                 if let errorMessage = errorMessage {
                     print("로그인 실패: \(errorMessage)")
+                    DispatchQueue.main.async {
+                        self.showAlert(message: errorMessage) // 알림창 표시
+                        self.loginView.emailTextField.text = ""
+                        self.loginView.passwordTextField.text = ""
+                    }
                 }
             }
         }
+    }
+    
+    // 알림창을 보여주는 메서드
+    private func showAlert(message: String) {
+        let alertController = UIAlertController(title: "로그인 실패", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        
+        // 현재 뷰 컨트롤러에서 알림창 표시
+        self.present(alertController, animated: true, completion: nil)
     }
 }

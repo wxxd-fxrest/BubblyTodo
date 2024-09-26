@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class todoMainViewController: UIViewController {
     
     var todoDTOList: [TodoDTO] = [] // API에서 받아온 투두 리스트
     private var collectionView: UICollectionView!
@@ -160,7 +160,7 @@ class MainViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension todoMainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 42 // 6주 x 7일
     }

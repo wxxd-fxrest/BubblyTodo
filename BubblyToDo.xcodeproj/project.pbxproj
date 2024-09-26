@@ -12,7 +12,7 @@
 		0B31D06D2C92F4A60053EDC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B31D06C2C92F4A60053EDC3 /* ViewController.swift */; };
 		0B31D0722C92F4A80053EDC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B31D0712C92F4A80053EDC3 /* Assets.xcassets */; };
 		0B31D0752C92F4A80053EDC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B31D0732C92F4A80053EDC3 /* LaunchScreen.storyboard */; };
-		0B6082D72C934C7D0003AEBB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6082D62C934C7D0003AEBB /* MainViewController.swift */; };
+		0B6082D72C934C7D0003AEBB /* todoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6082D62C934C7D0003AEBB /* todoMainViewController.swift */; };
 		0B6082D92C934C890003AEBB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6082D82C934C890003AEBB /* LoginViewController.swift */; };
 		0B6082DB2C934C940003AEBB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6082DA2C934C940003AEBB /* SignupViewController.swift */; };
 		0B6082DD2C934CB40003AEBB /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6082DC2C934CB40003AEBB /* UserModel.swift */; };
@@ -48,6 +48,16 @@
 		0BA4D49D2C9882430097F208 /* ToDoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D49C2C9882430097F208 /* ToDoManager.swift */; };
 		0BA4D49F2C988DE70097F208 /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D49E2C988DE70097F208 /* CategoryManager.swift */; };
 		0BA4D4A12C989D440097F208 /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4D4A02C989D440097F208 /* DiaryManager.swift */; };
+		0BE905E72CA586350058229C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE905E62CA586350058229C /* LoginView.swift */; };
+		0BE905E92CA587D60058229C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE905E82CA587D60058229C /* LoginViewModel.swift */; };
+		0BE905EE2CA591030058229C /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE905ED2CA591030058229C /* MainTabView.swift */; };
+		0BE905F02CA591130058229C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE905EF2CA591130058229C /* MainViewModel.swift */; };
+		0BE905F22CA591320058229C /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE905F12CA591320058229C /* MainTabViewController.swift */; };
+		0BE905FA2CA5B33A0058229C /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE905F92CA5B33A0058229C /* DiaryViewController.swift */; };
+		0BE905FC2CA5B3680058229C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE905FB2CA5B3680058229C /* ProfileViewController.swift */; };
+		0BE905FE2CA5B38C0058229C /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE905FD2CA5B38C0058229C /* TodoViewController.swift */; };
+		0BE906002CA5B41C0058229C /* TodoTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE905FF2CA5B41C0058229C /* TodoTopView.swift */; };
+		0BE906022CA5B4E20058229C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE906012CA5B4E20058229C /* MainViewController.swift */; };
 		0BFF9FA72CA3E9C20046DB50 /* LogoFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FA62CA3E9C10046DB50 /* LogoFactory+.swift */; };
 		0BFF9FA92CA3EC3A0046DB50 /* StartUserFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FA82CA3EC3A0046DB50 /* StartUserFactory+.swift */; };
 		0BFF9FAB2CA3EC690046DB50 /* ButtonFactory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFF9FAA2CA3EC690046DB50 /* ButtonFactory+.swift */; };
@@ -65,7 +75,7 @@
 		0B31D0712C92F4A80053EDC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B31D0742C92F4A80053EDC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B31D0762C92F4A80053EDC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0B6082D62C934C7D0003AEBB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		0B6082D62C934C7D0003AEBB /* todoMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todoMainViewController.swift; sourceTree = "<group>"; };
 		0B6082D82C934C890003AEBB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0B6082DA2C934C940003AEBB /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0B6082DC2C934CB40003AEBB /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -99,6 +109,16 @@
 		0BA4D49C2C9882430097F208 /* ToDoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoManager.swift; sourceTree = "<group>"; };
 		0BA4D49E2C988DE70097F208 /* CategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
 		0BA4D4A02C989D440097F208 /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
+		0BE905E62CA586350058229C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		0BE905E82CA587D60058229C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		0BE905ED2CA591030058229C /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		0BE905EF2CA591130058229C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		0BE905F12CA591320058229C /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
+		0BE905F92CA5B33A0058229C /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		0BE905FB2CA5B3680058229C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		0BE905FD2CA5B38C0058229C /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
+		0BE905FF2CA5B41C0058229C /* TodoTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTopView.swift; sourceTree = "<group>"; };
+		0BE906012CA5B4E20058229C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0BFF9FA62CA3E9C10046DB50 /* LogoFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogoFactory+.swift"; sourceTree = "<group>"; };
 		0BFF9FA82CA3EC3A0046DB50 /* StartUserFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StartUserFactory+.swift"; sourceTree = "<group>"; };
 		0BFF9FAA2CA3EC690046DB50 /* ButtonFactory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonFactory+.swift"; sourceTree = "<group>"; };
@@ -171,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				0BFF9FB12CA467E20046DB50 /* User */,
+				0BE905EA2CA590C60058229C /* Main */,
 				0BFF9FB22CA467E50046DB50 /* Todo */,
 				0BFF9FB32CA467EB0046DB50 /* Category */,
 				0BFF9FB42CA467F40046DB50 /* Diary */,
@@ -183,6 +204,7 @@
 			children = (
 				0B6082DE2C9367360003AEBB /* LoginStateChecker.swift */,
 				0BFF9FB72CA469620046DB50 /* SignupViewModel.swift */,
+				0BE905E82CA587D60058229C /* LoginViewModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -215,6 +237,7 @@
 				0B8025A72C97422400B1926E /* DiaryDetailViewController.swift */,
 				0B8025AB2C974E5C00B1926E /* AddDiaryViewController.swift */,
 				0B8025A92C974E4600B1926E /* EditDiaryViewController.swift */,
+				0BE905F92CA5B33A0058229C /* DiaryViewController.swift */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -230,10 +253,11 @@
 		0BA4D45F2C982F960097F208 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
-				0B6082D62C934C7D0003AEBB /* MainViewController.swift */,
+				0B6082D62C934C7D0003AEBB /* todoMainViewController.swift */,
 				0B9C0ADE2C9604D700ECBB31 /* AddTodoViewController.swift */,
 				0B9C0AE02C961E0D00ECBB31 /* EditTodoViewController.swift */,
 				0B8025A32C970E5C00B1926E /* BubblyViewController.swift */,
+				0BE905FD2CA5B38C0058229C /* TodoViewController.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -244,6 +268,7 @@
 				0B6082DA2C934C940003AEBB /* SignupViewController.swift */,
 				0B6082D82C934C890003AEBB /* LoginViewController.swift */,
 				0BFF9FAE2CA461960046DB50 /* SecurityViewController.swift */,
+				0BE905FB2CA5B3680058229C /* ProfileViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -345,6 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				0BA4D4592C982F5D0097F208 /* User */,
+				0BE905EB2CA590D20058229C /* Main */,
 				0BA4D45A2C982F670097F208 /* Todo */,
 				0BA4D45B2C982F6B0097F208 /* Category */,
 				0BA4D45C2C982F720097F208 /* Diary */,
@@ -359,10 +385,37 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		0BE905EA2CA590C60058229C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				0BE905ED2CA591030058229C /* MainTabView.swift */,
+				0BE905FF2CA5B41C0058229C /* TodoTopView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		0BE905EB2CA590D20058229C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				0BE905EF2CA591130058229C /* MainViewModel.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		0BE905EC2CA590E10058229C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				0BE905F12CA591320058229C /* MainTabViewController.swift */,
+				0BE906012CA5B4E20058229C /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		0BFF9FB02CA467A20046DB50 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				0BA4D4602C982F9A0097F208 /* User */,
+				0BE905EC2CA590E10058229C /* Main */,
 				0BA4D45F2C982F960097F208 /* Todo */,
 				0BA4D45E2C982F900097F208 /* Category */,
 				0BA4D45D2C982F8B0097F208 /* Diary */,
@@ -374,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				0BFF9FB52CA4680F0046DB50 /* SignupView.swift */,
+				0BE905E62CA586350058229C /* LoginView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -495,29 +549,39 @@
 				0B8025A82C97422400B1926E /* DiaryDetailViewController.swift in Sources */,
 				0B31D0692C92F4A60053EDC3 /* AppDelegate.swift in Sources */,
 				0BFF9FA92CA3EC3A0046DB50 /* StartUserFactory+.swift in Sources */,
+				0BE905E92CA587D60058229C /* LoginViewModel.swift in Sources */,
+				0BE905E72CA586350058229C /* LoginView.swift in Sources */,
 				0B8025AA2C974E4600B1926E /* EditDiaryViewController.swift in Sources */,
+				0BE906002CA5B41C0058229C /* TodoTopView.swift in Sources */,
 				0B8025A42C970E5D00B1926E /* BubblyViewController.swift in Sources */,
 				0BFF9FB62CA4680F0046DB50 /* SignupView.swift in Sources */,
+				0BE905F02CA591130058229C /* MainViewModel.swift in Sources */,
 				0B31D06B2C92F4A60053EDC3 /* SceneDelegate.swift in Sources */,
 				0BFF9FA72CA3E9C20046DB50 /* LogoFactory+.swift in Sources */,
+				0BE905FE2CA5B38C0058229C /* TodoViewController.swift in Sources */,
 				0BA4D49F2C988DE70097F208 /* CategoryManager.swift in Sources */,
+				0BE905EE2CA591030058229C /* MainTabView.swift in Sources */,
 				0B8025AC2C974E5C00B1926E /* AddDiaryViewController.swift in Sources */,
 				0BA4D4952C9845C00097F208 /* UserManager.swift in Sources */,
 				0BFF9FAF2CA461960046DB50 /* SecurityViewController.swift in Sources */,
+				0BE906022CA5B4E20058229C /* MainViewController.swift in Sources */,
 				0BA4D4872C9833060097F208 /* ActivityIndicatorHelper.swift in Sources */,
 				0B6082D92C934C890003AEBB /* LoginViewController.swift in Sources */,
 				0B9C0AE12C961E0D00ECBB31 /* EditTodoViewController.swift in Sources */,
 				0B8025A62C9740BA00B1926E /* CalendarViewController.swift in Sources */,
 				0BFF9FAB2CA3EC690046DB50 /* ButtonFactory+.swift in Sources */,
 				0BA4D49D2C9882430097F208 /* ToDoManager.swift in Sources */,
+				0BE905F22CA591320058229C /* MainTabViewController.swift in Sources */,
 				0BA4D4812C98322A0097F208 /* UIColor.swift in Sources */,
 				0BA4D49B2C9881340097F208 /* ApiManager.swift in Sources */,
-				0B6082D72C934C7D0003AEBB /* MainViewController.swift in Sources */,
+				0B6082D72C934C7D0003AEBB /* todoMainViewController.swift in Sources */,
 				0BA4D4A12C989D440097F208 /* DiaryManager.swift in Sources */,
 				0BA4D4932C983D0D0097F208 /* UserTextFieldFactory+.swift in Sources */,
 				0B9C0ADF2C9604D700ECBB31 /* AddTodoViewController.swift in Sources */,
 				0B9C0ADD2C95F7A600ECBB31 /* CategoryViewController.swift in Sources */,
 				0BFF9FAD2CA3F05D0046DB50 /* UIFactory+.swift in Sources */,
+				0BE905FC2CA5B3680058229C /* ProfileViewController.swift in Sources */,
+				0BE905FA2CA5B33A0058229C /* DiaryViewController.swift in Sources */,
 				0BA4D4832C98329D0097F208 /* UIView+.swift in Sources */,
 				0BA4D4852C9832D10097F208 /* KeyboardTap.swift in Sources */,
 				0B6082DD2C934CB40003AEBB /* UserModel.swift in Sources */,
