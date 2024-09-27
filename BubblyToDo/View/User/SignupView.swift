@@ -36,7 +36,7 @@ class SignupView: UIView {
     
     // Button
     let signupButton = ButtonFactory.longButton(title: "회원가입", titleColor: MySpecialColors.WhiteColor, backgroundColor: MySpecialColors.MainColor, cornerRadius: 8)
-    lazy var consentCheckBox = UIFactory.makeImageButton(image: UIImage(systemName: "square"), tintColor: MySpecialColors.MainColor)
+    var consentCheckBox = UIFactory.makeSystemImageButton(image: "square", tintColor: MySpecialColors.MainColor)
     lazy var consentText = UIFactory.makeLabel(text: "개인정보 보안 동의", textColor: MySpecialColors.TermTextColor, font: UIFont.pretendard(style: .regular, size: 12, isScaled: true))
     
     lazy var consentStackView: UIStackView = UIFactory.makeStackView(

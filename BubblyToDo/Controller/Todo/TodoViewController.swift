@@ -23,6 +23,9 @@ class TodoViewController: UIViewController {
         todoTopView.dateStackView.isUserInteractionEnabled = true // 사용자 상호작용을 활성화
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateSelectTapped))
         todoTopView.dateStackView.addGestureRecognizer(tapGesture)
+        
+        todoTopView.leftArrowImage.addTarget(self, action: #selector(leftArrowTapped), for: .touchUpInside)
+        todoTopView.rigntArrowImage.addTarget(self, action: #selector(rightArrowTapped), for: .touchUpInside)
     }
     
     private func setupTodoTopUI() {
@@ -38,6 +41,23 @@ class TodoViewController: UIViewController {
     }
     
     @objc func dateSelectTapped() {
-        print("stack click")
+        let datePickerView = DatePickerView(selectedDate: Date())
+        datePickerView.backgroundColor = UIColor.black.withAlphaComponent(0.5) // 반투명 배경
+        
+        // DatePickerView를 TodoViewController의 뷰에 추가
+        view.addSubview(datePickerView)
+        
+        // DatePickerView 제약 조건 설정
+        datePickerView.snp.makeConstraints {
+            $0.edges.equalToSuperview() // 화면 전체를 차지하도록 설정
+        }
+    }
+    
+    @objc func leftArrowTapped() {
+        print("left button click")
+    }
+    
+    @objc func rightArrowTapped() {
+        print("right button click")
     }
 }

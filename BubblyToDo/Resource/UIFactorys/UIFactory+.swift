@@ -54,11 +54,16 @@ class UIFactory: UIViewController {
     }
     
     // MARK: Image Button
-    static func makeImageButton(image: UIImage?, tintColor: UIColor) -> UIButton {
+    static func makeSystemImageButton(image: String, tintColor: UIColor) -> UIButton {
         return UIButton().then {
-            if let image = image {
-                $0.setImage(image, for: .normal)
-            }
+            $0.setImage(UIImage(systemName: image), for: .normal)
+            $0.tintColor = tintColor
+        }
+    }
+    
+    static func makeImageButton(image: String, tintColor: UIColor) -> UIButton {
+        return UIButton().then {
+            $0.setImage(UIImage(named: image)?.withRenderingMode(.alwaysTemplate), for: .normal)
             $0.tintColor = tintColor
         }
     }
