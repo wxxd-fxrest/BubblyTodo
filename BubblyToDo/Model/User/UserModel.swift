@@ -7,13 +7,6 @@
 
 import Foundation
 
-//struct User {
-//    var id: Int64?
-//    var useremail: String
-//    var userpassword: String
-//    var username: String
-//}
-
 struct UserDTO: Codable {
     var id: Int64?
     var userEmail: String
@@ -26,24 +19,6 @@ struct CategoryDTO: Codable {
     let category: String
     let categoryColor: String // 예를 들어, 색상을 HEX 문자열로 변환할 수도 있습니다.
     var categoryUser: String?
-}
-
-struct TodoDTO: Codable {
-    var todoId: Int64?
-    var todo: String
-    var todoDate: String
-    var todoState: Bool
-    var todoUser: String
-    var todoCategoryId: Int64?
-    var todoCategory: String
-    var todoCategoryColor: String
-}
-
-struct EditTodoDTO: Codable {
-    var todo: String
-    var todoDate: String
-    var todoCategory: String
-    var todoCategoryColor: String
 }
 
 struct DiaryDTO: Codable {

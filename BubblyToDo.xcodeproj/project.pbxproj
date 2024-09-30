@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B1AA2902CA9C26300DE27F2 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AA28F2CA9C26300DE27F2 /* TodoModel.swift */; };
+		0B1AA2922CA9C29200DE27F2 /* DatePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AA2912CA9C29200DE27F2 /* DatePickerViewModel.swift */; };
+		0B1AA2942CA9C3FF00DE27F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AA2932CA9C3FF00DE27F2 /* DatePickerViewController.swift */; };
 		0B31D0692C92F4A60053EDC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B31D0682C92F4A60053EDC3 /* AppDelegate.swift */; };
 		0B31D06B2C92F4A60053EDC3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B31D06A2C92F4A60053EDC3 /* SceneDelegate.swift */; };
 		0B31D06D2C92F4A60053EDC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B31D06C2C92F4A60053EDC3 /* ViewController.swift */; };
 		0B31D0722C92F4A80053EDC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B31D0712C92F4A80053EDC3 /* Assets.xcassets */; };
 		0B31D0752C92F4A80053EDC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B31D0732C92F4A80053EDC3 /* LaunchScreen.storyboard */; };
-		0B3DD2A22CA71630002AAB44 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3DD2A12CA71630002AAB44 /* DatePickerViewController.swift */; };
+		0B3DD2A22CA71630002AAB44 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3DD2A12CA71630002AAB44 /* DatePickerView.swift */; };
 		0B6082D72C934C7D0003AEBB /* todoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6082D62C934C7D0003AEBB /* todoMainViewController.swift */; };
 		0B6082D92C934C890003AEBB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6082D82C934C890003AEBB /* LoginViewController.swift */; };
 		0B6082DB2C934C940003AEBB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6082DA2C934C940003AEBB /* SignupViewController.swift */; };
@@ -69,6 +72,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B1AA28F2CA9C26300DE27F2 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
+		0B1AA2912CA9C29200DE27F2 /* DatePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewModel.swift; sourceTree = "<group>"; };
+		0B1AA2932CA9C3FF00DE27F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		0B31D0652C92F4A60053EDC3 /* BubblyToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblyToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B31D0682C92F4A60053EDC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B31D06A2C92F4A60053EDC3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +82,7 @@
 		0B31D0712C92F4A80053EDC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B31D0742C92F4A80053EDC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B31D0762C92F4A80053EDC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0B3DD2A12CA71630002AAB44 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		0B3DD2A12CA71630002AAB44 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		0B6082D62C934C7D0003AEBB /* todoMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todoMainViewController.swift; sourceTree = "<group>"; };
 		0B6082D82C934C890003AEBB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0B6082DA2C934C940003AEBB /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 		0BA4D45A2C982F670097F208 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				0B1AA2912CA9C29200DE27F2 /* DatePickerViewModel.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -260,7 +267,7 @@
 				0B9C0AE02C961E0D00ECBB31 /* EditTodoViewController.swift */,
 				0B8025A32C970E5C00B1926E /* BubblyViewController.swift */,
 				0BE905FD2CA5B38C0058229C /* TodoViewController.swift */,
-				0B3DD2A12CA71630002AAB44 /* DatePickerViewController.swift */,
+				0B1AA2932CA9C3FF00DE27F2 /* DatePickerViewController.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -293,6 +300,7 @@
 		0BA4D4632C982FAE0097F208 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				0B1AA28F2CA9C26300DE27F2 /* TodoModel.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -438,6 +446,7 @@
 		0BFF9FB22CA467E50046DB50 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				0B3DD2A12CA71630002AAB44 /* DatePickerView.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -555,14 +564,16 @@
 				0BE905E92CA587D60058229C /* LoginViewModel.swift in Sources */,
 				0BE905E72CA586350058229C /* LoginView.swift in Sources */,
 				0B8025AA2C974E4600B1926E /* EditDiaryViewController.swift in Sources */,
-				0B3DD2A22CA71630002AAB44 /* DatePickerViewController.swift in Sources */,
+				0B3DD2A22CA71630002AAB44 /* DatePickerView.swift in Sources */,
 				0BE906002CA5B41C0058229C /* TodoTopView.swift in Sources */,
 				0B8025A42C970E5D00B1926E /* BubblyViewController.swift in Sources */,
 				0BFF9FB62CA4680F0046DB50 /* SignupView.swift in Sources */,
 				0BE905F02CA591130058229C /* MainViewModel.swift in Sources */,
 				0B31D06B2C92F4A60053EDC3 /* SceneDelegate.swift in Sources */,
 				0BFF9FA72CA3E9C20046DB50 /* LogoFactory+.swift in Sources */,
+				0B1AA2922CA9C29200DE27F2 /* DatePickerViewModel.swift in Sources */,
 				0BE905FE2CA5B38C0058229C /* TodoViewController.swift in Sources */,
+				0B1AA2942CA9C3FF00DE27F2 /* DatePickerViewController.swift in Sources */,
 				0BA4D49F2C988DE70097F208 /* CategoryManager.swift in Sources */,
 				0BE905EE2CA591030058229C /* MainTabView.swift in Sources */,
 				0B8025AC2C974E5C00B1926E /* AddDiaryViewController.swift in Sources */,
@@ -579,6 +590,7 @@
 				0BA4D4812C98322A0097F208 /* UIColor.swift in Sources */,
 				0BA4D49B2C9881340097F208 /* ApiManager.swift in Sources */,
 				0B6082D72C934C7D0003AEBB /* todoMainViewController.swift in Sources */,
+				0B1AA2902CA9C26300DE27F2 /* TodoModel.swift in Sources */,
 				0BA4D4A12C989D440097F208 /* DiaryManager.swift in Sources */,
 				0BA4D4932C983D0D0097F208 /* UserTextFieldFactory+.swift in Sources */,
 				0B9C0ADF2C9604D700ECBB31 /* AddTodoViewController.swift in Sources */,

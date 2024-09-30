@@ -81,4 +81,18 @@ class UIFactory: UIViewController {
             $0.clipsToBounds = true
         }
     }
+    
+    // MARK: CollectionView
+    static func makeCollectionView(layout: UICollectionViewLayout, scrollDirection: UICollectionView.ScrollDirection) -> UICollectionView {
+        // layout을 사용하는 경우 layout의 scrollDirection을 설정
+        if let flowLayout = layout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = scrollDirection
+        }
+        
+        return UICollectionView(frame: .zero, collectionViewLayout: layout).then {
+            $0.backgroundColor = .clear
+            $0.showsVerticalScrollIndicator = false
+            $0.showsHorizontalScrollIndicator = false
+        }
+    }
 }
